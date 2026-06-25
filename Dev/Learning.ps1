@@ -1,0 +1,1 @@
+Get-Command | Export-Csv -path "C:\Users\Public\Documents\AllCommands.csv" -NoTypeInformation

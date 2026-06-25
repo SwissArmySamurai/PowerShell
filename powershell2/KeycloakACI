@@ -1,0 +1,17 @@
+$randomNumber = Get-Random -Minimum 1000 -Maximum 9999
+$dnsLabel = "keycloak-demo-$randomNumber"
+
+az container create `
+  --resource-group Keycloak `
+  --name keycloak-container `
+  --image quay.io/keycloak/keycloak:latest `
+  --ports 8080 `
+  --cpu 2 `
+  --memory 4 `
+  --restart-policy Always `
+  --environment-variables KEYCLOAK_ADMIN=admin KEYCLOAK_ADMIN_PASSWORD=admin `
+  --command-line "/opt/keycloak/bin/kc.sh start-dev --http-port=8080 --hostname-strict=false" `
+  --dns-name-label $dnsLabel `
+  --location eastus `
+  --os-type Linux
+
